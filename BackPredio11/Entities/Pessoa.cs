@@ -1,7 +1,12 @@
-﻿namespace BackPredio11.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BackPredio11.Entities
 {
     public class Pessoa
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long PessoaId { get; set; }
         public string PessoaNome { get; set; }
         public string PessoaIdUnivates { get; set; }

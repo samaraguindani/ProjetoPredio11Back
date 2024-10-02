@@ -49,7 +49,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("TipoBemId");
 
-                    b.ToTable("Bem");
+                    b.ToTable("Bem", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.ItensReserva", b =>
@@ -68,7 +68,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("ReservaId");
 
-                    b.ToTable("ItensReserva");
+                    b.ToTable("ItensReserva", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.ItensRetirada", b =>
@@ -86,7 +86,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("BemId");
 
-                    b.ToTable("ItensRetirada");
+                    b.ToTable("ItensRetirada", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.MotivoRetirada", b =>
@@ -103,7 +103,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("MotivoRetiradaId");
 
-                    b.ToTable("Motivos");
+                    b.ToTable("Motivos", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Pessoa", b =>
@@ -128,7 +128,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("PessoaId");
 
-                    b.ToTable("Pessoas");
+                    b.ToTable("Pessoas", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
@@ -155,7 +155,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Reservas");
+                    b.ToTable("Reservas", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
@@ -194,7 +194,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Retiradas");
+                    b.ToTable("Retiradas", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.StatusBem", b =>
@@ -211,7 +211,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("StatusBemId");
 
-                    b.ToTable("StatusBem");
+                    b.ToTable("StatusBem", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.TipoBem", b =>
@@ -228,7 +228,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("TipoBemId");
 
-                    b.ToTable("TipoBem");
+                    b.ToTable("TipoBem", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Bem", b =>
@@ -291,7 +291,7 @@ namespace BackPredio11.Migrations
             modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
                 {
                     b.HasOne("BackPredio11.Entities.Pessoa", "Pessoa")
-                        .WithMany()
+                        .WithMany("Reservas")
                         .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -308,7 +308,7 @@ namespace BackPredio11.Migrations
                         .IsRequired();
 
                     b.HasOne("BackPredio11.Entities.Pessoa", "Pessoa")
-                        .WithMany()
+                        .WithMany("Retiradas")
                         .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -327,6 +327,13 @@ namespace BackPredio11.Migrations
 
             modelBuilder.Entity("BackPredio11.Entities.MotivoRetirada", b =>
                 {
+                    b.Navigation("Retiradas");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.Pessoa", b =>
+                {
+                    b.Navigation("Reservas");
+
                     b.Navigation("Retiradas");
                 });
 

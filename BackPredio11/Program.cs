@@ -23,6 +23,13 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.WriteIndented = true; 
+    });
+
 var app = builder.Build();
 
 // Ativa o middleware do Swagger
@@ -30,7 +37,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    c.RoutePrefix = string.Empty;  // Isso permite acessar o Swagger na raiz (ex: localhost:5000/)
+    c.RoutePrefix = string.Empty; 
 });
 
 if (!app.Environment.IsDevelopment())
@@ -40,15 +47,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
 
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapRazorPages();
 

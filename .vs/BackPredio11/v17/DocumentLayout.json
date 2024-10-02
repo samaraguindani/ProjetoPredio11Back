@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\entities\\pessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|solutionrelative:backpredio11\\entities\\pessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|solutionrelative:backpredio11\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\controllers\\pessoacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|solutionrelative:backpredio11\\controllers\\pessoacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -13,14 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\entities\\retirada.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|solutionrelative:backpredio11\\entities\\retirada.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\entities\\pessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|solutionrelative:backpredio11\\entities\\pessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\controllers\\pessoacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|solutionrelative:backpredio11\\controllers\\pessoacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B70BCC33-6E55-48C7-9DB2-BCFE25892CDD}|BackPredio11\\BackPredio11.csproj|c:\\users\\samil\\onedrive\\\u00E1rea de trabalho\\backpredio11\\backpredio11\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
@@ -58,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "PessoaController.cs",
               "DocumentMoniker": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Controllers\\PessoaController.cs",
               "RelativeDocumentMoniker": "BackPredio11\\Controllers\\PessoaController.cs",
@@ -66,7 +66,8 @@
               "RelativeToolTip": "BackPredio11\\Controllers\\PessoaController.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAgwFcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-30T00:16:02.759Z"
+              "WhenOpened": "2024-09-30T00:16:02.759Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -82,20 +83,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Program.cs",
               "RelativeDocumentMoniker": "BackPredio11\\Program.cs",
               "ToolTip": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Program.cs",
               "RelativeToolTip": "BackPredio11\\Program.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAQwDEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAswBsAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-29T23:29:47.805Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Retirada.cs",
               "DocumentMoniker": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Entities\\Retirada.cs",
               "RelativeDocumentMoniker": "BackPredio11\\Entities\\Retirada.cs",
@@ -119,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Context\\AppDbContext.cs",
               "RelativeDocumentMoniker": "BackPredio11\\Context\\AppDbContext.cs",
@@ -127,20 +128,20 @@
               "RelativeToolTip": "BackPredio11\\Context\\AppDbContext.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAQwBgAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T20:52:48.578Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-29T20:52:48.578Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Pessoa.cs",
               "DocumentMoniker": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Entities\\Pessoa.cs",
               "RelativeDocumentMoniker": "BackPredio11\\Entities\\Pessoa.cs",
               "ToolTip": "C:\\Users\\samil\\OneDrive\\\u00C1rea de Trabalho\\BackPredio11\\BackPredio11\\Entities\\Pessoa.cs",
               "RelativeToolTip": "BackPredio11\\Entities\\Pessoa.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T20:44:37.187Z"
+              "WhenOpened": "2024-09-29T20:44:37.187Z",
+              "EditorCaption": ""
             }
           ]
         }
