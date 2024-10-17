@@ -15,7 +15,8 @@
         public Pessoa Pessoa { get; set; }
         public long PessoaId { get; set; }
         
-        public ICollection<ItensRetirada> ItensRetirada { get; set; }
+        public Bem Bem { get; set; }
+        public long BemId { get; set; }
 
     }
 }

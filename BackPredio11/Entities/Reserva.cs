@@ -10,5 +10,6 @@ public class Reserva
     public Pessoa Pessoa { get; set; }
     public long PessoaId { get; set; }
 
-    public ICollection<ItensReserva> ItensReserva { get; set; }
+    public Bem Bem { get; set; }
+    public long BemId { get; set; }
 }

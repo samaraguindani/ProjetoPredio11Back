@@ -19,36 +19,39 @@ private readonly AppDbContext _context;
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Bem>>> GetBens()
     {
-        return await _context.Bem
-            .Include(b => b.StatusBem)
-            .Include(b => b.TipoBem)
-            .ToListAsync();
+        // return await _context.Bem
+        //     .Include(b => b.StatusBem)
+        //     .Include(b => b.TipoBem)
+        //     .ToListAsync();
+        
+        return await _context.Bem.ToListAsync();
+
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Bem>> GetBem(long id)
-    {
-        var bem = await _context.Bem
-            .Include(b => b.StatusBem)
-            .Include(b => b.TipoBem)
-            .FirstOrDefaultAsync(b => b.BemId == id);
+    // [HttpGet("{id}")]
+    // public async Task<ActionResult<Bem>> GetBem(long id)
+    // {
+    //     var bem = await _context.Bem
+    //         .Include(b => b.StatusBem)
+    //         .Include(b => b.TipoBem)
+    //         .FirstOrDefaultAsync(b => b.BemId == id);
+    //
+    //     if (bem == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     return bem;
+    // }
 
-        if (bem == null)
-        {
-            return NotFound();
-        }
-
-        return bem;
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<Bem>> PostBem(Bem bem)
-    {
-        _context.Bem.Add(bem);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetBem), new { id = bem.BemId }, bem);
-    }
+    // [HttpPost]
+    // public async Task<ActionResult<Bem>> PostBem(Bem bem)
+    // {
+    //     _context.Bem.Add(bem);
+    //     await _context.SaveChangesAsync();
+    //
+    //     return CreatedAtAction(nameof(GetBem), new { id = bem.BemId }, bem);
+    // }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> PutBem(long id, Bem bem)

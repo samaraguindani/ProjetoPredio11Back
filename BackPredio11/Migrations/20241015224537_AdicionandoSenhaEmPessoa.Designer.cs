@@ -3,6 +3,7 @@ using System;
 using BackPredio11.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackPredio11.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241015224537_AdicionandoSenhaEmPessoa")]
+    partial class AdicionandoSenhaEmPessoa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,44 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("TipoBemId");
 
-                    b.ToTable("Bem", (string)null);
+                    b.ToTable("Bem");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.ItensReserva", b =>
+                {
+                    b.Property<long>("BemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ReservaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("QuantidadeBem")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("BemId", "ReservaId");
+
+                    b.HasIndex("ReservaId");
+
+                    b.ToTable("ItensReserva");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.ItensRetirada", b =>
+                {
+                    b.Property<long>("RetiradaId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("BemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("QuantidadeBem")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RetiradaId", "BemId");
+
+                    b.HasIndex("BemId");
+
+                    b.ToTable("ItensRetirada");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.MotivoRetirada", b =>
@@ -66,7 +106,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("MotivoRetiradaId");
 
-                    b.ToTable("Motivos", (string)null);
+                    b.ToTable("Motivos");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Pessoa", b =>
@@ -95,7 +135,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("PessoaId");
 
-                    b.ToTable("Pessoas", (string)null);
+                    b.ToTable("Pessoas");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
@@ -105,9 +145,6 @@ namespace BackPredio11.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("ReservaId"));
-
-                    b.Property<long>("BemId")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("PessoaId")
                         .HasColumnType("bigint");
@@ -123,11 +160,9 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("ReservaId");
 
-                    b.HasIndex("BemId");
-
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Reservas", (string)null);
+                    b.ToTable("Reservas");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
@@ -137,9 +172,6 @@ namespace BackPredio11.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("RetiradaId"));
-
-                    b.Property<long>("BemId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DevolucaoData")
                         .HasColumnType("timestamp with time zone");
@@ -165,13 +197,11 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("RetiradaId");
 
-                    b.HasIndex("BemId");
-
                     b.HasIndex("MotivoRetiradaId");
 
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Retiradas", (string)null);
+                    b.ToTable("Retiradas");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.StatusBem", b =>
@@ -188,7 +218,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("StatusBemId");
 
-                    b.ToTable("StatusBem", (string)null);
+                    b.ToTable("StatusBem");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.TipoBem", b =>
@@ -205,7 +235,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("TipoBemId");
 
-                    b.ToTable("TipoBem", (string)null);
+                    b.ToTable("TipoBem");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Bem", b =>
@@ -227,33 +257,57 @@ namespace BackPredio11.Migrations
                     b.Navigation("TipoBem");
                 });
 
-            modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
+            modelBuilder.Entity("BackPredio11.Entities.ItensReserva", b =>
                 {
                     b.HasOne("BackPredio11.Entities.Bem", "Bem")
-                        .WithMany("Reservas")
+                        .WithMany("ItensReserva")
                         .HasForeignKey("BemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BackPredio11.Entities.Reserva", "Reserva")
+                        .WithMany("ItensReserva")
+                        .HasForeignKey("ReservaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bem");
+
+                    b.Navigation("Reserva");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.ItensRetirada", b =>
+                {
+                    b.HasOne("BackPredio11.Entities.Bem", "Bem")
+                        .WithMany("ItensRetirada")
+                        .HasForeignKey("BemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BackPredio11.Entities.Retirada", "Retirada")
+                        .WithMany("ItensRetirada")
+                        .HasForeignKey("RetiradaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bem");
+
+                    b.Navigation("Retirada");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
+                {
                     b.HasOne("BackPredio11.Entities.Pessoa", "Pessoa")
                         .WithMany("Reservas")
                         .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Bem");
-
                     b.Navigation("Pessoa");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
                 {
-                    b.HasOne("BackPredio11.Entities.Bem", "Bem")
-                        .WithMany("Retiradas")
-                        .HasForeignKey("BemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BackPredio11.Entities.MotivoRetirada", "MotivoRetirada")
                         .WithMany("Retiradas")
                         .HasForeignKey("MotivoRetiradaId")
@@ -266,8 +320,6 @@ namespace BackPredio11.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Bem");
-
                     b.Navigation("MotivoRetirada");
 
                     b.Navigation("Pessoa");
@@ -275,9 +327,9 @@ namespace BackPredio11.Migrations
 
             modelBuilder.Entity("BackPredio11.Entities.Bem", b =>
                 {
-                    b.Navigation("Reservas");
+                    b.Navigation("ItensReserva");
 
-                    b.Navigation("Retiradas");
+                    b.Navigation("ItensRetirada");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.MotivoRetirada", b =>
@@ -290,6 +342,16 @@ namespace BackPredio11.Migrations
                     b.Navigation("Reservas");
 
                     b.Navigation("Retiradas");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
+                {
+                    b.Navigation("ItensReserva");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
+                {
+                    b.Navigation("ItensRetirada");
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.StatusBem", b =>
