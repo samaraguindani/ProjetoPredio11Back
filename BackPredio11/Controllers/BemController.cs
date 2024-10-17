@@ -17,89 +17,112 @@ private readonly AppDbContext _context;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Bem>>> GetBens()
+    public async Task<ActionResult<IEnumerable<Item>>> GetItens()
     {
-        // return await _context.Bem
-        //     .Include(b => b.StatusBem)
-        //     .Include(b => b.TipoBem)
-        //     .ToListAsync();
-        
-        return await _context.Bem.ToListAsync();
+        try
+        {
+            var itens = await _context.Items.ToListAsync();
+            return Ok(itens);
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, "Ocorreu um erro ao buscar os itens.");        
+        }
 
     }
 
-    // [HttpGet("{id}")]
-    // public async Task<ActionResult<Bem>> GetBem(long id)
-    // {
-    //     var bem = await _context.Bem
-    //         .Include(b => b.StatusBem)
-    //         .Include(b => b.TipoBem)
-    //         .FirstOrDefaultAsync(b => b.BemId == id);
-    //
-    //     if (bem == null)
-    //     {
-    //         return NotFound();
-    //     }
-    //
-    //     return bem;
-    // }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Item>> GetItem(long id)
+    {
+        try
+        {
+            var item = await _context.Items
+                .Include(b => b.StatusItem)
+                .Include(b => b.TipoItem)
+                .FirstOrDefaultAsync(b => b.ItemId == id);
+    
+            if (item == null)
+            {
+                return NotFound();
+            }
+    
+            return Ok(item);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, "Ocorreu um erro ao buscar o item.");        
 
-    // [HttpPost]
-    // public async Task<ActionResult<Bem>> PostBem(Bem bem)
-    // {
-    //     _context.Bem.Add(bem);
-    //     await _context.SaveChangesAsync();
-    //
-    //     return CreatedAtAction(nameof(GetBem), new { id = bem.BemId }, bem);
-    // }
+        }
+        
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Item>> PostItem(Item item)
+    {
+        try
+        {
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+            var novoItem = CreatedAtAction(nameof(GetItem), new { id = item.ItemId }, item);
+            return Ok(novoItem);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, "Ocorreu um erro ao criar o item.");        
+        }
+        
+    }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutBem(long id, Bem bem)
+    public async Task<IActionResult> PutItem(long id, Item item)
     {
-        if (id != bem.BemId)
+        if (id != item.ItemId)
         {
             return BadRequest();
         }
 
-        _context.Entry(bem).State = EntityState.Modified;
+        _context.Entry(item).State = EntityState.Modified;
 
         try
         {
-            await _context.SaveChangesAsync();
+            var atualizaItem = await _context.SaveChangesAsync();
+            return Ok(atualizaItem);
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!BemExists(id))
+            var BemExists = _context.Items.Any(e => e.ItemId == id);
+
+            if (!BemExists)
             {
                 return NotFound();
             }
-            else
-            {
-                throw;
-            }
         }
-
-        return NoContent();
+        return StatusCode(500, "Ocorreu um erro ao atualizar o item.");        
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteBem(long id)
+    public async Task<IActionResult> DeleteItem(long id)
     {
-        var bem = await _context.Bem.FindAsync(id);
-        if (bem == null)
+        try
         {
-            return NotFound();
+            var bem = await _context.Items.FindAsync(id);
+            if (bem == null)
+            {
+                return NotFound();
+            }
+
+            _context.Items.Remove(bem);
+            var itemDeletado = await _context.SaveChangesAsync();
+            return Ok(itemDeletado);
         }
-
-        _context.Bem.Remove(bem);
-        await _context.SaveChangesAsync();
-
-        return NoContent();
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, "Ocorreu um erro ao deletar o item.");        
+        }
     }
-
-    private bool BemExists(long id)
-    {
-        return _context.Bem.Any(e => e.BemId == id);
-    }
-
 }

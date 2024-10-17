@@ -44,7 +44,7 @@ namespace BackPredio11.Migrations
                 name: "FK_Reservas_Bem_BemId",
                 table: "Reservas",
                 column: "BemId",
-                principalTable: "Bem",
+                principalTable: "Item",
                 principalColumn: "BemId",
                 onDelete: ReferentialAction.Cascade);
 
@@ -52,7 +52,7 @@ namespace BackPredio11.Migrations
                 name: "FK_Retiradas_Bem_BemId",
                 table: "Retiradas",
                 column: "BemId",
-                principalTable: "Bem",
+                principalTable: "Item",
                 principalColumn: "BemId",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -98,7 +98,7 @@ namespace BackPredio11.Migrations
                     table.ForeignKey(
                         name: "FK_ItensReserva_Bem_BemId",
                         column: x => x.BemId,
-                        principalTable: "Bem",
+                        principalTable: "Item",
                         principalColumn: "BemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -123,7 +123,7 @@ namespace BackPredio11.Migrations
                     table.ForeignKey(
                         name: "FK_ItensRetirada_Bem_BemId",
                         column: x => x.BemId,
-                        principalTable: "Bem",
+                        principalTable: "Item",
                         principalColumn: "BemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

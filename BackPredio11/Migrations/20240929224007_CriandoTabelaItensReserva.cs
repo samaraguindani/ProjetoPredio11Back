@@ -24,7 +24,7 @@ namespace BackPredio11.Migrations
                     table.ForeignKey(
                         name: "FK_ItensReserva_Bem_BemId",
                         column: x => x.BemId,
-                        principalTable: "Bem",
+                        principalTable: "Item",
                         principalColumn: "BemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

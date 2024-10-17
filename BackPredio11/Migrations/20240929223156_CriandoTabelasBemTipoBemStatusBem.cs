@@ -12,7 +12,7 @@ namespace BackPredio11.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "StatusBem",
+                name: "StatusItem",
                 columns: table => new
                 {
                     StatusBemId = table.Column<long>(type: "bigint", nullable: false)
@@ -25,7 +25,7 @@ namespace BackPredio11.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TipoBem",
+                name: "TipoItem",
                 columns: table => new
                 {
                     TipoBemId = table.Column<long>(type: "bigint", nullable: false)
@@ -38,7 +38,7 @@ namespace BackPredio11.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bem",
+                name: "Item",
                 columns: table => new
                 {
                     BemId = table.Column<long>(type: "bigint", nullable: false)
@@ -54,25 +54,25 @@ namespace BackPredio11.Migrations
                     table.ForeignKey(
                         name: "FK_Bem_StatusBem_StatusBemId",
                         column: x => x.StatusBemId,
-                        principalTable: "StatusBem",
+                        principalTable: "StatusItem",
                         principalColumn: "StatusBemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bem_TipoBem_TipoBemId",
                         column: x => x.TipoBemId,
-                        principalTable: "TipoBem",
+                        principalTable: "TipoItem",
                         principalColumn: "TipoBemId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bem_StatusBemId",
-                table: "Bem",
+                table: "Item",
                 column: "StatusBemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bem_TipoBemId",
-                table: "Bem",
+                table: "Item",
                 column: "TipoBemId");
         }
 
@@ -80,13 +80,13 @@ namespace BackPredio11.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Bem");
+                name: "Item");
 
             migrationBuilder.DropTable(
-                name: "StatusBem");
+                name: "StatusItem");
 
             migrationBuilder.DropTable(
-                name: "TipoBem");
+                name: "TipoItem");
         }
     }
 }

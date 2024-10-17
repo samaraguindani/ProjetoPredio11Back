@@ -10,6 +10,6 @@ public class Reserva
     public Pessoa Pessoa { get; set; }
     public long PessoaId { get; set; }
 
-    public Bem Bem { get; set; }
+    public Item Item { get; set; }
     public long BemId { get; set; }
 }

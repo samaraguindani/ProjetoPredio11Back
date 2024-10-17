@@ -19,8 +19,8 @@ namespace BackPredio11.Context
         public DbSet<MotivoRetirada> Motivos { get; set; }
         public DbSet<Retirada> Retiradas { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
-        public DbSet<StatusBem> StatusBem { get; set; }
-        public DbSet<TipoBem> TipoBem { get; set; }
-        public DbSet<Bem> Bem { get; set; }
+        public DbSet<StatusItem> StatusItems { get; set; }
+        public DbSet<TipoItem> TipoItems { get; set; }
+        public DbSet<Item> Items { get; set; }
     }
 }
