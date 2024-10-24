@@ -49,7 +49,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("TipoItemId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.MotivoRetirada", b =>
@@ -66,7 +66,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("MotivoRetiradaId");
 
-                    b.ToTable("Motivos");
+                    b.ToTable("Motivos", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Pessoa", b =>
@@ -95,7 +95,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("PessoaId");
 
-                    b.ToTable("Pessoas");
+                    b.ToTable("Pessoas", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Reserva", b =>
@@ -130,7 +130,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Reservas");
+                    b.ToTable("Reservas", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
@@ -177,7 +177,7 @@ namespace BackPredio11.Migrations
 
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Retiradas");
+                    b.ToTable("Retiradas", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.StatusItem", b =>
@@ -194,7 +194,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("StatusItemId");
 
-                    b.ToTable("StatusItems");
+                    b.ToTable("StatusItems", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.TipoItem", b =>
@@ -211,7 +211,7 @@ namespace BackPredio11.Migrations
 
                     b.HasKey("TipoItemId");
 
-                    b.ToTable("TipoItems");
+                    b.ToTable("TipoItems", (string)null);
                 });
 
             modelBuilder.Entity("BackPredio11.Entities.Item", b =>

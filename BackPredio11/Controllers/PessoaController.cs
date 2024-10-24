@@ -1,7 +1,6 @@
-using BackPredio11.Context;
 using BackPredio11.Entities;
+using BackPredio11.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BackPredio11.Controllers;
 
@@ -9,30 +8,49 @@ namespace BackPredio11.Controllers;
 [ApiController]
 public class PessoaController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IPessoaService _pessoaService;
 
-    public PessoaController(AppDbContext context)
+    public PessoaController(IPessoaService pessoaService)
     {
-        _context = context;
+        _pessoaService = pessoaService;
     }
     
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Pessoa>>> GetPessoas()
     {
-        return await _context.Pessoas.ToListAsync();
+        try
+        {
+            var pessoas = await _pessoaService.GetPessoas();
+            return Ok(pessoas);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Erro ao buscar pessoas: {e.Message}");
+            Console.WriteLine(e.StackTrace); 
+            return StatusCode(500, "Ocorreu um erro ao encontrar pessoas");        
+        }
     }
     
     [HttpGet("{id}")]
     public async Task<ActionResult<Pessoa>> GetPessoa(long id)
     {
-        var pessoa = await _context.Pessoas.FindAsync(id);
-
-        if (pessoa == null)
+        try
         {
-            return NotFound();
-        }
+            var pessoa = await _pessoaService.GetPessoa(id);
 
-        return pessoa;
+            if (pessoa == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(pessoa);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, "Ocorreu um erro ao encontrar pessoa");
+        }
+        
     }
     
     // [HttpPut("{id}")]
