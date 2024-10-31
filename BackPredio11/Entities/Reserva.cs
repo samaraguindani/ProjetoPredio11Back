@@ -7,9 +7,9 @@ public class Reserva
     public DateTime ReservaDataValidade { get; set; }
     public int QuantidadeBem { get; set; }
 
-    public Pessoa Pessoa { get; set; }
+    // public Pessoa Pessoa { get; set; }
     public long PessoaId { get; set; }
 
-    public Item Item { get; set; }
+    // public Item Item { get; set; }
     public long BemId { get; set; }
 }

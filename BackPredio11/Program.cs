@@ -42,10 +42,11 @@ builder.Services.AddControllers()
 //Configurando service e repositorio
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IReservaService, ReservaService>();
 
 builder.Services.AddScoped<PessoaRepository>();
 builder.Services.AddScoped<ItemRepository>();
-
+builder.Services.AddScoped<ReservaRepository>();
 
 var app = builder.Build();
 
