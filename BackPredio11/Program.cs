@@ -9,13 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
         options.JsonSerializerOptions.WriteIndented = true; 
     });
-
 
 // Configura o DbContext com PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -32,14 +39,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-        options.JsonSerializerOptions.WriteIndented = true; 
-    });
-
-//Configurando service e repositorio
+// Configurando service e repositorio
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IReservaService, ReservaService>();
@@ -49,6 +49,13 @@ builder.Services.AddScoped<ItemRepository>();
 builder.Services.AddScoped<ReservaRepository>();
 
 var app = builder.Build();
+
+// Aplica migrações automaticamente
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Ativa o middleware do Swagger
 app.UseSwagger();
@@ -65,15 +72,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
+app.UseCors("AllowAll");
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapRazorPages();
 
 app.Run();

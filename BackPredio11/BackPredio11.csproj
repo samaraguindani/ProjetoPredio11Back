@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Compile Remove="Controller\**" />
+    <Compile Remove="Entities\StatusItem.cs" />
+    <Compile Remove="Entities\TipoItem.cs" />
   </ItemGroup>
 
   <ItemGroup>

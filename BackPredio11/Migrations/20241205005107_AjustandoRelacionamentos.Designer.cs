@@ -3,6 +3,7 @@ using System;
 using BackPredio11.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BackPredio11.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241205005107_AjustandoRelacionamentos")]
+    partial class AjustandoRelacionamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,66 @@ namespace BackPredio11.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("BackPredio11.Entities.Item", b =>
+                {
+                    b.Property<long>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("ItemId"));
+
+                    b.Property<string>("ItemDescricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ItemPermitido")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QuantidadeItem")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TipoItem")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ItemId");
+
+                    b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("BackPredio11.Entities.Pessoa", b =>
+                {
+                    b.Property<long>("PessoaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("PessoaId"));
+
+                    b.Property<string>("PessoaIdUnivates")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PessoaNome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PessoaSenha")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PessoaTipo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PessoaUsername")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("PessoaId");
+
+                    b.ToTable("Pessoas");
+                });
 
             modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
                 {
@@ -61,66 +124,6 @@ namespace BackPredio11.Migrations
                     b.ToTable("Retiradas");
                 });
 
-            modelBuilder.Entity("Item", b =>
-                {
-                    b.Property<long>("ItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("ItemId"));
-
-                    b.Property<string>("ItemDescricao")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ItemPermitido")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QuantidadeItem")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TipoItem")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("ItemId");
-
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("Pessoa", b =>
-                {
-                    b.Property<long>("PessoaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("PessoaId"));
-
-                    b.Property<string>("PessoaIdUnivates")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PessoaNome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PessoaSenha")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PessoaTipo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PessoaUsername")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("PessoaId");
-
-                    b.ToTable("Pessoas");
-                });
-
             modelBuilder.Entity("Reserva", b =>
                 {
                     b.Property<long>("ReservaId")
@@ -155,13 +158,13 @@ namespace BackPredio11.Migrations
 
             modelBuilder.Entity("BackPredio11.Entities.Retirada", b =>
                 {
-                    b.HasOne("Item", "Item")
+                    b.HasOne("BackPredio11.Entities.Item", "Item")
                         .WithMany("Retiradas")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pessoa", "Pessoa")
+                    b.HasOne("BackPredio11.Entities.Pessoa", "Pessoa")
                         .WithMany("Retiradas")
                         .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -174,13 +177,13 @@ namespace BackPredio11.Migrations
 
             modelBuilder.Entity("Reserva", b =>
                 {
-                    b.HasOne("Item", "Item")
+                    b.HasOne("BackPredio11.Entities.Item", "Item")
                         .WithMany("Reservas")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pessoa", "Pessoa")
+                    b.HasOne("BackPredio11.Entities.Pessoa", "Pessoa")
                         .WithMany("Reservas")
                         .HasForeignKey("PessoaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -191,14 +194,14 @@ namespace BackPredio11.Migrations
                     b.Navigation("Pessoa");
                 });
 
-            modelBuilder.Entity("Item", b =>
+            modelBuilder.Entity("BackPredio11.Entities.Item", b =>
                 {
                     b.Navigation("Reservas");
 
                     b.Navigation("Retiradas");
                 });
 
-            modelBuilder.Entity("Pessoa", b =>
+            modelBuilder.Entity("BackPredio11.Entities.Pessoa", b =>
                 {
                     b.Navigation("Reservas");
 

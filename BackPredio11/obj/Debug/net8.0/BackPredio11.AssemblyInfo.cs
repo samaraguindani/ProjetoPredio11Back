@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BackPredio11")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80e661aeeaac020fbad570b0336b1bdf7178866e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6531fe4c0dad2a31edb84ab1a287a665945f8bbc")]
 [assembly: System.Reflection.AssemblyProductAttribute("BackPredio11")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BackPredio11")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

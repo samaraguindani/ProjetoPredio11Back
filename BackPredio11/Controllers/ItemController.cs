@@ -1,135 +1,82 @@
+using Microsoft.AspNetCore.Mvc;
 using BackPredio11.Context;
 using BackPredio11.Entities;
-using BackPredio11.Service;
-using BackPredio11.Service.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackPredio11.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class ItemController : ControllerBase
+namespace BackPredio11.Controllers
 {
-private readonly IItemService _itemService;
-
-    public ItemController(IItemService itemService)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ItemController : ControllerBase
     {
-        _itemService = itemService;
-    }
+        private readonly AppDbContext _context;
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetItens()
-    {
-        try
+        public ItemController(AppDbContext context)
         {
-            //var itens = await _context.Items.ToListAsync();
-            var itens = await _itemService.GetItens();
-            return Ok(itens);
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, "Ocorreu um erro ao buscar os itens.");        
+            _context = context;
         }
 
-    }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Item>> GetItem(long id)
-    {
-        try
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Item>>> GetItens()
         {
-            // var item = await _context.Items
-            //     .Include(b => b.StatusItem)
-            //     .Include(b => b.TipoItem)
-            //     .FirstOrDefaultAsync(b => b.ItemId == id);
-            //
-            // if (item == null)
-            // {
-            //     return NotFound();
-            // }
-
-            var item = await _itemService.GetItem(id);
-    
-            return Ok(item);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, "Ocorreu um erro ao buscar o item.");        
-
-        }
-        
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<Item>> PostItem(Item item)
-    {
-        try
-        {
-            // _context.Items.Add(item);
-            // await _context.SaveChangesAsync();
-            var novoItem = CreatedAtAction(nameof(GetItem), new { id = item.ItemId }, item);
-            return Ok(novoItem);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, "Ocorreu um erro ao criar o item.");        
-        }
-        
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutItem(long id, Item item)
-    {
-        if (id != item.ItemId)
-        {
-            return BadRequest();
+            return await _context.Items.Include(i => i.Reservas).Include(i => i.Retiradas).ToListAsync();
         }
 
-        // _context.Entry(item).State = EntityState.Modified;
-
-        try
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Item>> GetItem(long id)
         {
-            // var atualizaItem = await _context.SaveChangesAsync();
-            // return Ok(atualizaItem);
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            // var BemExists = _context.Items.Any(e => e.ItemId == id);
-
-            // if (!BemExists)
-            // {
-            //     return NotFound();
-            // }
-        }
-        return StatusCode(500, "Ocorreu um erro ao atualizar o item.");        
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteItem(long id)
-    {
-        try
-        {
-            // var bem = await _context.Items.FindAsync(id);
-            // if (bem == null)
-            // {
-            //     return NotFound();
-            // }
-            //
-            // _context.Items.Remove(bem);
-            // var itemDeletado = await _context.SaveChangesAsync();
-            // return Ok(itemDeletado);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return StatusCode(500, "Ocorreu um erro ao deletar o item.");        
+            var item = await _context.Items.Include(i => i.Reservas).Include(i => i.Retiradas).FirstOrDefaultAsync(i => i.ItemId == id);
+            if (item == null) return NotFound();
+            return item;
         }
 
-        return NotFound();
+        [HttpPost]
+        public async Task<ActionResult<Item>> CreateItem(Item item)
+        {
+            _context.Items.Add(item);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetItem), new { id = item.ItemId }, item);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateItem(long id, Item item)
+        {
+            if (id != item.ItemId)
+                return BadRequest(new { message = "O ID do item não corresponde ao ID na URL." });
+
+            // Verifica se o item existe antes de tentar atualizá-lo
+            var existingItem = await _context.Items.AsNoTracking().FirstOrDefaultAsync(i => i.ItemId == id);
+            if (existingItem == null)
+                return NotFound(new { message = $"Item com ID = {id} não foi encontrado." });
+
+            // Atualiza o item
+            _context.Entry(item).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return NoContent(); // Retorna 204 em caso de sucesso
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // Verifica novamente se o item ainda existe
+                if (!await _context.Items.AnyAsync(i => i.ItemId == id))
+                    return NotFound(new { message = $"Item com ID = {id} não foi encontrado após tentativa de atualização." });
+
+                throw; // Relança a exceção para ser tratada pelo middleware de erro
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteItem(long id)
+        {
+            var item = await _context.Items.FindAsync(id);
+            if (item == null) return NotFound();
+
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
